@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV Charging App</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="head">
+        <h1>Fast Charging</h1>
+    </div>
+    <div class="content">
+
+    <div id="S1">
+        <div class="Head">
+            <h1>Booking</h1>
+        </div>
+        
+    
+        <div id="Booked" class="Modules">
+            <h2 class="ModuleHead">Your Bookings</h2>
+            <div class="div1">
+                <h3 class="place">Coimbatore</h3>
+                <p class="timedate">at <span class="time" id="dispTime">11:20</span> on <span class="date" id="dispDate">11-02-2022</span></p>
+            </div>
+            <button id="cancel" onclick="cancelBooking()">Cancel Booking</button>
+        </div>
+    </div>
+    
+    <div id="S2">
+        <div class="Head">
+            <h1>Booking</h1>
+        </div>
+        <div id="BookingForm" class="Modules">
+            <h2 class="ModuleHead">Book Your Slot</h2>
+            <div class="div1">
+                <p class="label">Day</p>
+                <input type="date" name="" id="date">
+                <p class="label">Day</p>
+                <input type="time" name="" id="time">
+                <button id="show" onclick="sendBookingData()">Confirm Boking</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="S3">
+        <div class="Head">
+               <h1>Charging Status</h1>
+           </div>
+           <div class="good" id="Cdiv">
+           <p class="p1" id="Cmsg">SAFE </p>
+           <h2 class="status"  id="Cstatus">Charging</h2>
+       
+           <div class="notif">
+               <p class="summary"  id="Csumm">Your Vehicle is connected safely and good to go </p>
+           </div>
+           </div>
+        </div>
+    <div id="S4">
+            <div class="Head">
+                <h1>Your Dashboard</h1>
+            </div>
+            <div class="div1">
+            <p class="label">user name</p>
+            <p class="value">Hari Raghav</p>
+    
+            <p class="label">vehicle numer</p>
+            <p class="value">TN 28 AB 0123</p>
+            </div>
+            
+    
+    </div>
+    </div>
+
+    
+
+           <div class="menu">
+               <div class="linkbox" id="bookinglink" onclick="changeTo(5)">
+                   Bookings
+               </div>
+               <div class="linkbox" id="homeinglink" onclick="changeTo(4)">
+                   Home
+               </div>
+               <div class="linkbox" id="charginginglink" onclick="changeTo(3)">
+                   Charging
+               </div>
+           </div>
+    <script type="module">
+ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js";
+import { getDatabase, ref,onValue, set, get, child } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-database.js";
+
+// Paste the code from Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyDaydlb_MxK4VGE4tDnuN5tYD-2QA4WDb8",
+    authDomain: "ev-cs-project-v1.firebaseapp.com",
+    databaseURL: "https://ev-cs-project-v1-default-rtdb.firebaseio.com",
+    projectId: "ev-cs-project-v1",
+    storageBucket: "ev-cs-project-v1.appspot.com",
+    messagingSenderId: "180029306481",
+    appId: "1:180029306481:web:fb656c9264314c58ffcdd0"
+  }
+ 
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase();
+const Data = ref(db, 'EVSEdetails/charging/status');
+onValue(Data, (snapshot) => {
+  const data = snapshot.val();
+  console.log(data)
+  if (data=='9'){
+    document.getElementById('Cmsg').innerHTML='SAFE'
+    document.getElementById('Cstatus').innerHTML='Ready to Charge'
+    document.getElementById('Csumm').innerHTML='Your vehicle is ready to be charged'
+    document.getElementById('Cdiv').className = "good";
+
+  }
+  if (data=='6'){
+    document.getElementById('Cmsg').innerHTML='SAFE'
+    document.getElementById('Cstatus').innerHTML='Charging'
+    document.getElementById('Csumm').innerHTML='Your vehicle is charging'
+    document.getElementById('Cdiv').className = "good";
+
+  }
+  if (data=='3'){
+    document.getElementById('Cmsg').innerHTML='WARNING'
+    document.getElementById('Cstatus').innerHTML='Ventilation'
+    document.getElementById('Csumm').innerHTML='Your vehicle needs ventilation now'
+    document.getElementById('Cdiv').className = "warning";
+
+  }
+  if (data=='12'){
+    document.getElementById('Cmsg').innerHTML='ALERT'
+    document.getElementById('Cstatus').innerHTML='Disconnected'
+    document.getElementById('Csumm').innerHTML='Your vehicle is not connected with charger'
+    document.getElementById('Cdiv').className = "alert";
+
+  }
+  
+});
+
+
+
+    </script>
+    <script src="index.js"></script>
+</body>
+</html>
