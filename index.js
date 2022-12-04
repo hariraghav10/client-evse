@@ -27,7 +27,7 @@ function checkBooking(){
    // console.log(data)
     
    changeTo(0); //blank screen
-  fetch('http://localhost:3300/bookinginfo2')           //api for the get request
+  fetch('https://server-evse.vercel.app/bookinginfo2')           //api for the get request
   .then(response => response.json())
   .then(data => {console.log(data["isBooked"])
     if(data["isBooked"]=="2"){
@@ -52,7 +52,7 @@ function updateBookingInfo(){
     
     
    //});
-   fetch('http://localhost:3300/bookinginfo2')           //api for the get request
+   fetch('https://server-evse.vercel.app/bookinginfo2')           //api for the get request
     .then(response => response.json())
     .then(data => {
         
@@ -72,7 +72,7 @@ function cancelBooking(){
      
      
     //});
-    fetch('http://localhost:3300/cancelbooking')           //api for the get request
+    fetch('https://server-evse.vercel.app/cancelbooking')           //api for the get request
      //.then(response => response.json())
      .then(data => {
         console.log(data)
@@ -174,7 +174,7 @@ function sendBookingData(){
         }
     })*/
      
-    fetch('http://localhost:3300/booking?date='+date+'&time='+time+'&evseid=123&userid=232')           //api for the get request
+    fetch('https://server-evse.vercel.app/booking?date='+date+'&time='+time+'&evseid=123&userid=232')           //api for the get request
      //.then(response => response.json())
      
     // Converting to JSON
